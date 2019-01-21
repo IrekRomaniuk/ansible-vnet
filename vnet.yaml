@@ -1,0 +1,25 @@
+- hosts: azure
+  environment:
+    AZURE_CLIENT_ID: "{{ AZURE_CLIENT_ID }}"
+    AZURE_SECRET: "{{ AZURE_SECRET }}"
+    AZURE_SUBSCRIPTION_ID: "{{ AZURE_SUBSCRIPTION_ID }}"
+    AZURE_TENANT: "{{ AZURE_TENANT }}"
+  tasks:
+    - name: Create a virtual network
+      azure_rm_virtualnetwork:
+        name: vnet1
+        resource_group: vk
+        address_prefixes_cidr:
+            - "10.1.0.0/16"
+    - name: Create a route table
+      azure_rm_routetable:
+        name: rt1
+        resource_group: vk
+        disable_bgp_route_propagation: False
+    - name: Update the subnet
+      azure_rm_subnet:
+        name: subnet1
+        virtual_network_name: vnet1
+        resource_group: vk
+        address_prefix_cidr: "10.1.0.0/16"
+        route_table: rt1         
