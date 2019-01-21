@@ -1,0 +1,34 @@
+- hosts: all
+  environment:
+    AZURE_CLIENT_ID: "{{ AZURE_CLIENT_ID }}"
+    AZURE_SECRET: "{{ AZURE_SECRET }}"
+    AZURE_SUBSCRIPTION_ID: "{{ AZURE_SUBSCRIPTION_ID }}"
+    AZURE_TENANT: "{{ AZURE_TENANT }}"
+  tasks:
+    - name: Create a virtual network
+      azure_rm_virtualnetwork:
+        name: "{{ vnet }}"
+        resource_group: "{{ rg }}"
+        address_prefixes_cidr:
+            - "10.2.0.0/16"     
+    - name: Create a route table
+      azure_rm_routetable:
+        name: rt1
+        resource_group: "{{ rg }}"
+        disable_bgp_route_propagation: False
+    - name: Create a security group
+      azure_rm_securitygroup:
+        resource_group: "{{ rg }}"
+        name: sg1
+        purge_rules: yes    
+    - name: Create and/or update the subnet
+      azure_rm_subnet:
+        name: "{{ subnets.name }}"
+        virtual_network_name: "{{ vnet }}"
+        resource_group: "{{ rg }}"
+        address_prefix_cidr: "{{ subnets.cidr }}"
+        route_table: "{{ subnets.udr }}"    
+        security_group:
+          name: "{{ subnets.nsg }}" 
+          resource_group: "{{ rg }}"    
+      with_items: "{{ subnets }}"    
