@@ -23,13 +23,13 @@
         purge_rules: yes    
     - name: Create and/or update the subnet
       azure_rm_subnet:
-        name: "{{ item.value.name }}"
+        name: "{{ item.name }}"
         virtual_network_name: "{{ vnet }}"
         resource_group: "{{ rg }}"
-        address_prefix_cidr: "{{ item.value.prefix }}"
-        route_table: "{{ item.value.udr }}"    
+        address_prefix_cidr: "{{ item.prefix }}"
+        route_table: "{{ item.udr }}"    
         security_group:
-          name: "{{ item.value.nsg }}" 
+          name: "{{ item.nsg }}" 
           resource_group: "{{ rg }}"  
       with_dict: "{{ subnets }}"       
      
