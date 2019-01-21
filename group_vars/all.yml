@@ -4,7 +4,8 @@ subnets:
   - 
     name: subnet1
     prefix: 10.2.1.0/24
-    udr: nsg1
+    udr: rt1
+    nsg: nsg1
    
   -
     name: subnet2
