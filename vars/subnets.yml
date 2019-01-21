@@ -1,0 +1,9 @@
+subnets:
+  - 
+    name: subnet1
+    cidr: 10.2.1.0/24
+    nsg: nsg1
+   
+  -
+    name: subnet2
+    cidr: 10.2.1.0/24
