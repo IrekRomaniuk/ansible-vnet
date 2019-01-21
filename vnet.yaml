@@ -14,7 +14,7 @@
     - name: Create a route table
       azure_rm_routetable:
         name: rt1
-        resource_group: vk
+        resource_group: "{{ rg }}"
         disable_bgp_route_propagation: False
     - name: Create and/or update the subnet
       azure_rm_subnet:
