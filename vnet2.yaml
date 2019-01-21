@@ -1,6 +1,4 @@
 - hosts: all
-  vars_files:
-      - vars/subnets.yml
   environment:
     AZURE_CLIENT_ID: "{{ AZURE_CLIENT_ID }}"
     AZURE_SECRET: "{{ AZURE_SECRET }}"
@@ -25,12 +23,12 @@
         purge_rules: yes    
     - name: Create and/or update the subnet
       azure_rm_subnet:
-        name: "{{ item.value.name }}"
+        name: "{{ subnets[1].name }}"
         virtual_network_name: "{{ vnet }}"
         resource_group: "{{ rg }}"
-        address_prefix_cidr: "{{ item.value.cidr }}"
-        route_table: "{{ item.value.udr }}"    
+        address_prefix_cidr: "{{ subnets[1].prefix }}"
+        route_table: "{{ subnets[1].udr }}"    
         security_group:
-          name: "{{ item.value.nsg }}" 
+          name: "{{ subnets[1].nsg }}" 
           resource_group: "{{ rg }}"    
-      with_dict: "{{ subnets }}"    
+     
