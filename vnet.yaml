@@ -16,10 +16,18 @@
         name: rt1
         resource_group: "{{ rg }}"
         disable_bgp_route_propagation: False
+    - name: Create a security group
+      azure_rm_securitygroup:
+        resource_group: "{{ rg }}"
+        name: sg1
+        purge_rules: yes    
     - name: Create and/or update the subnet
       azure_rm_subnet:
         name: subnet1
         virtual_network_name: "{{ vnet }}"
         resource_group: "{{ rg }}"
         address_prefix_cidr: "10.2.0.0/24"
-        route_table: rt1         
+        route_table: rt1     
+        security_group:
+          name: sg1
+          resource_group: "{{ rg }}"    
