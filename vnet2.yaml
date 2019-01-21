@@ -1,6 +1,6 @@
 - hosts: all
   vars_files:
-      -   subnets.yml
+      - vars/subnets.yml
   environment:
     AZURE_CLIENT_ID: "{{ AZURE_CLIENT_ID }}"
     AZURE_SECRET: "{{ AZURE_SECRET }}"
