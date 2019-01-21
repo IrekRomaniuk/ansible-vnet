@@ -9,7 +9,7 @@ subnets:
    
   -
     name: subnet2
-    prefix: 10.2.1.0/24
+    prefix: 10.2.2.0/24
     udr: rt1
     nsg: sg1
   
