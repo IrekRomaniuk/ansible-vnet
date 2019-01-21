@@ -31,4 +31,4 @@
         security_group:
           name: "{{ subnets.nsg }}" 
           resource_group: "{{ rg }}"    
-      with_items: "{{ subnets }}"    
+      with_dict: "{{ subnets }}"    
